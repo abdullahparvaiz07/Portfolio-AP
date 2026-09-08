@@ -1,0 +1,994 @@
+@import "tailwindcss";
+
+@theme {
+  --font-heading: "Phudu", sans-serif;
+  --font-body: "Instrument Sans", sans-serif;
+
+  --color-main: hsl(72, 99%, 50%);
+  --color-main-two: hsl(19, 100%, 50%);
+  --color-heading: hsl(208, 76%, 3%);
+  --color-body: hsl(204, 16%, 24%);
+  --color-neutral-100: hsl(0, 0%, 90%);
+  --color-neutral-200: hsl(0, 0%, 80%);
+}
+
+/* Import original template stylesheets to preserve all existing visual layouts */
+@import "../assets/css/bootstrap.min.css";
+@import "../assets/css/swiper-bundle.css";
+@import "../assets/css/magnific-popup.css";
+@import "../assets/css/aos.css";
+@import "../assets/css/main.css";
+
+/* React Custom overrides */
+.tw-magic-cursor {
+  cursor: none !important;
+}
+
+/* Adjust scroll smooth behaviors for React */
+#smooth-wrapper {
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
+}
+
+@keyframes marquee {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+/* ==========================================================================
+   SENIOR CREATIVE DIRECTOR — INSANE HOVER INTERACTION SYSTEM
+   ========================================================================== */
+
+/* ── 1. Global Button & CTA Animations ── */
+
+.tw-hover-btn,
+.btn,
+.btn-three,
+button:not(.bg-transparent),
+a.tw-hover-btn {
+  position: relative !important;
+  overflow: hidden !important;
+  transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1),
+              box-shadow 0.4s cubic-bezier(0.25, 1, 0.5, 1),
+              background-color 0.3s ease,
+              color 0.3s ease !important;
+  will-change: transform, box-shadow;
+}
+
+/* Shimmer Sweep Effect on Buttons */
+.tw-hover-btn::before,
+.btn::before,
+.btn-three::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 75%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.25) 50%,
+    transparent 100%
+  );
+  transform: skewX(-25deg);
+  transition: left 0.75s cubic-bezier(0.19, 1, 0.22, 1);
+  pointer-events: none;
+  z-index: 2;
+}
+
+.tw-hover-btn:hover::before,
+.btn:hover::before,
+.btn-three:hover::before {
+  left: 140%;
+}
+
+.tw-hover-btn:hover,
+.btn:hover,
+.btn-three:hover {
+  transform: translateY(-4px) scale(1.03) !important;
+  box-shadow: 0 16px 32px -8px rgba(0, 0, 0, 0.22),
+              0 6px 12px -4px rgba(0, 0, 0, 0.12) !important;
+}
+
+.tw-hover-btn:active,
+.btn:active,
+.btn-three:active {
+  transform: translateY(-1px) scale(0.98) !important;
+  box-shadow: 0 6px 16px -4px rgba(0, 0, 0, 0.15) !important;
+}
+
+/* ── 2. Arrow & Icon Pop Micro-Interactions ── */
+
+a span:last-child,
+button span:last-child,
+.tw-hover-btn span {
+  display: inline-block;
+  transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+a:hover span:last-child,
+button:hover span:last-child {
+  transform: translate(4px, -4px);
+}
+
+/* ── 3. Navlink Animated Liquid Underlines ── */
+
+.header ul li a,
+.header-three ul li a {
+  position: relative;
+  transition: color 0.3s ease;
+}
+
+.header ul li a::after,
+.header-three ul li a::after {
+  content: "";
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+  opacity: 0.85;
+}
+
+.header ul li a:hover::after,
+.header-three ul li a:hover::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+/* ── 4. Card Lift & Parallax Shadows ── */
+
+.portfolio-three-item,
+.portfolio-item,
+.portfolio-two-item,
+.banner-three-counter-item,
+.service-three-single {
+  transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+              box-shadow 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+              border-color 0.3s ease !important;
+  will-change: transform;
+}
+
+.portfolio-three-item:hover,
+.portfolio-item:hover,
+.portfolio-two-item:hover {
+  transform: translateY(-8px) !important;
+  box-shadow: 0 24px 48px -12px rgba(0, 0, 0, 0.12) !important;
+}
+
+.portfolio-three-item img,
+.portfolio-item img,
+.portfolio-two-item img {
+  transition: transform 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+              filter 0.5s ease !important;
+}
+
+.portfolio-three-item:hover img,
+.portfolio-item:hover img,
+.portfolio-two-item:hover img {
+  transform: scale(1.07) !important;
+  filter: contrast(1.06) brightness(1.02) !important;
+}
+
+/* ── 5. Services Row Interactive Slide ── */
+
+.service-three-item,
+.service-item {
+  transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+              padding 0.4s cubic-bezier(0.22, 1, 0.36, 1) !important;
+}
+
+.service-three-item:hover,
+.service-item:hover {
+  transform: translateX(16px) !important;
+}
+
+.service-three-item:hover .service-three-title a,
+.service-item:hover h2 a,
+.service-item:hover h3 a {
+  color: #ffffff !important;
+  text-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+}
+
+.service-three-thumb {
+  max-width: 440px;
+  width: 100%;
+  flex-shrink: 0;
+}
+
+.service-three-thumb img {
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+  display: block;
+  object-fit: contain;
+}
+
+/* ── 6. Interactive Pill Badges & Chips ── */
+
+.tw-rounded-full,
+.badge,
+.tag {
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1),
+              background-color 0.3s ease,
+              color 0.3s ease,
+              box-shadow 0.3s ease !important;
+}
+
+.tw-rounded-full:hover {
+  transform: translateY(-2px) scale(1.04);
+}
+
+/* ── 7. Input Fields Focus Elevation ── */
+
+.form-control,
+input,
+textarea {
+  transition: border-color 0.3s ease,
+              box-shadow 0.3s cubic-bezier(0.22, 1, 0.36, 1),
+              transform 0.3s ease !important;
+}
+
+.form-control:hover,
+input:hover,
+textarea:hover {
+  border-color: #777 !important;
+}
+
+.form-control:focus,
+input:focus,
+textarea:focus {
+  border-color: #000 !important;
+  transform: translateY(-2px) !important;
+  box-shadow: 0 8px 24px -4px rgba(0, 0, 0, 0.08) !important;
+}
+
+/* ==================== Custom Tooltip Social Links (Uiverse.io) ==================== */
+.tooltip-container {
+  position: relative;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-size: 17px;
+  border-radius: 10px;
+}
+
+.tooltip {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 10px;
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.3s;
+  border-radius: 15px;
+  box-shadow: inset 5px 5px 5px rgba(0, 0, 0, 0.2),
+    inset -5px -5px 15px rgba(255, 255, 255, 0.1),
+    5px 5px 15px rgba(0, 0, 0, 0.3), -5px -5px 15px rgba(255, 255, 255, 0.1);
+  width: 200px;
+  z-index: 10;
+}
+
+.profile {
+  background: #111111;
+  border-radius: 10px 15px;
+  padding: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.tooltip-container:hover .tooltip {
+  top: -125px;
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+.icon {
+  text-decoration: none;
+  color: #fff;
+  display: block;
+  position: relative;
+}
+
+.layer {
+  width: 55px;
+  height: 55px;
+  transition: transform 0.3s;
+  position: relative;
+}
+
+.icon:hover .layer {
+  transform: rotate(-35deg) skew(20deg);
+}
+
+.layer span {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  border: 1px solid #fff;
+  border-radius: 15px;
+  transition: all 0.3s;
+}
+
+.icon:hover .layer span {
+  box-shadow: -1px 1px 3px rgba(255, 255, 255, 0.4);
+}
+
+.icon .text {
+  position: absolute;
+  left: 50%;
+  bottom: -5px;
+  opacity: 0;
+  font-weight: 500;
+  transform: translateX(-50%);
+  transition: bottom 0.3s ease, opacity 0.3s ease;
+  font-size: 11px;
+}
+
+.icon:hover .text {
+  bottom: -30px;
+  opacity: 1;
+}
+
+.icon:hover .layer span:nth-child(1) {
+  opacity: 0.2;
+}
+.icon:hover .layer span:nth-child(2) {
+  opacity: 0.4;
+  transform: translate(5px, -5px);
+}
+.icon:hover .layer span:nth-child(3) {
+  opacity: 0.6;
+  transform: translate(10px, -10px);
+}
+.icon:hover .layer span:nth-child(4) {
+  opacity: 0.8;
+  transform: translate(15px, -15px);
+}
+.icon:hover .layer span:nth-child(5) {
+  opacity: 1;
+  transform: translate(20px, -20px);
+}
+
+.instagramSVG,
+.linkedinSVG,
+.githubSVG {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 25px;
+}
+
+.instagramSVG {
+  background: linear-gradient(
+    45deg,
+    #f09433 0%,
+    #e6683c 25%,
+    #dc2743 50%,
+    #cc2366 75%,
+    #bc1888 100%
+  );
+}
+
+.linkedinSVG {
+  background: #0077b5;
+}
+
+.githubSVG {
+  background: #24292e;
+}
+
+.user {
+  display: flex;
+  gap: 10px;
+}
+
+.img {
+  width: 45px;
+  height: 45px;
+  font-size: 18px;
+  font-weight: 700;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #fff;
+}
+
+.name {
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.details {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  color: #fff;
+}
+
+.about {
+  color: #aaa;
+  font-size: 11px;
+  padding-top: 5px;
+}
+
+/* ==========================================================================
+   macOS SONOMA DESKTOP EXPERIENCE
+   ========================================================================== */
+
+/* ── Desktop Shell & Wallpaper ── */
+.os-desktop {
+  position: fixed;
+  inset: 0;
+  background-image: url('https://images.unsplash.com/photo-1542224566-6e85f2e6772f?q=80&w=2560&auto=format&fit=crop');
+  background-size: cover;
+  background-position: center;
+  z-index: 10000;
+  overflow: hidden;
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", "Helvetica Neue", Arial, sans-serif;
+  user-select: none;
+  animation: os-fade-in 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.os-desktop.os-exiting {
+  animation: os-fade-out 0.4s ease forwards;
+}
+
+@keyframes os-fade-in {
+  from { opacity: 0; transform: scale(1.02); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes os-fade-out {
+  from { opacity: 1; transform: scale(1); }
+  to { opacity: 0; transform: scale(1.02); }
+}
+
+/* Central Welcoming Text */
+.os-desktop-welcome {
+  position: absolute;
+  top: 38%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  color: #ffffff;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.os-desktop-welcome h2 {
+  font-size: 26px;
+  font-weight: 300;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.35);
+  margin-bottom: 8px;
+}
+
+.os-desktop-welcome h1 {
+  font-size: 96px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  text-shadow: 0 4px 24px rgba(0, 0, 0, 0.3);
+  margin: 0;
+  line-height: 1;
+}
+
+/* ── Menu Bar ── */
+.os-menubar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 24px;
+  background: rgba(255, 255, 255, 0.25);
+  backdrop-filter: blur(25px);
+  -webkit-backdrop-filter: blur(25px);
+  border-bottom: 1.5px solid rgba(255, 255, 255, 0.15);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 16px;
+  z-index: 10002;
+  color: #ffffff;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.os-menubar-left {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.os-menubar-logo {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.os-menubar-app-name {
+  font-weight: 700;
+  margin-right: 4px;
+}
+
+.os-menubar-menu-item {
+  cursor: pointer;
+  padding: 1px 8px;
+  border-radius: 4px;
+  transition: background 0.1s;
+}
+
+.os-menubar-menu-item:hover {
+  background: rgba(255, 255, 255, 0.15);
+}
+
+.os-menubar-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.os-menubar-item {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.os-menubar-time {
+  font-weight: 500;
+}
+
+/* ── Desktop Icons (Folders) ── */
+.os-desktop-icons {
+  position: absolute;
+  top: 38px;
+  left: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  z-index: 2;
+}
+
+.os-desktop-icon-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 90px;
+  cursor: pointer;
+  border-radius: 6px;
+  padding: 6px;
+  transition: background 0.15s;
+}
+
+.os-desktop-icon-item:hover {
+  background: rgba(255, 255, 255, 0.15);
+}
+
+.os-desktop-icon-item.os-icon-selected {
+  background: rgba(255, 255, 255, 0.25);
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.1);
+}
+
+.os-desktop-icon-img {
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 6px;
+}
+
+.os-desktop-icon-label {
+  font-size: 11px;
+  color: #ffffff;
+  text-align: center;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.8);
+  font-weight: 500;
+  word-break: break-word;
+  max-width: 84px;
+}
+
+/* ── Window ── */
+.os-window {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(30px) saturate(180%);
+  -webkit-backdrop-filter: blur(30px) saturate(180%);
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow:
+    0 22px 70px 4px rgba(0, 0, 0, 0.35),
+    0 0 0 0.5px rgba(255, 255, 255, 0.2);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  min-width: 350px;
+  min-height: 250px;
+}
+
+.os-window-opening {
+  animation: os-window-open 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes os-window-open {
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+/* ── Titlebar ── */
+.os-window-titlebar {
+  height: 38px;
+  background: rgba(243, 243, 243, 0.6);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
+  padding: 0 12px;
+  user-select: none;
+  flex-shrink: 0;
+}
+
+.os-window-title {
+  flex: 1;
+  text-align: center;
+  font-size: 13px;
+  font-weight: 700;
+  color: #333333;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  pointer-events: none;
+}
+
+/* ── Traffic Lights (Left Side) ── */
+.os-traffic-lights {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  z-index: 1;
+  position: absolute;
+  left: 12px;
+}
+
+.os-tl {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  position: relative;
+}
+
+.os-tl svg {
+  opacity: 0;
+  transition: opacity 0.12s;
+}
+
+.os-window-titlebar:hover .os-tl svg {
+  opacity: 1;
+}
+
+.os-tl-close {
+  background: #ff5f56;
+}
+
+.os-tl-minimize {
+  background: #ffbd2e;
+}
+
+.os-tl-maximize {
+  background: #27c93f;
+}
+
+/* ── Window Content ── */
+.os-window-content {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  background: rgba(255, 255, 255, 0.95);
+  color: #333333;
+  padding: 20px;
+}
+
+.os-window-content::-webkit-scrollbar {
+  width: 8px;
+}
+
+.os-window-content::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.os-window-content::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.15);
+  border-radius: 4px;
+}
+
+.os-window-content::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 0, 0, 0.3);
+}
+
+/* ── Bottom Dock ── */
+.os-dock-wrapper {
+  position: fixed;
+  bottom: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10002;
+}
+
+.os-dock {
+  display: flex;
+  align-items: flex-end;
+  gap: 8px;
+  padding: 8px 12px;
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(35px);
+  -webkit-backdrop-filter: blur(35px);
+  border-radius: 18px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 
+    0 10px 40px rgba(0, 0, 0, 0.25),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+.os-dock-separator {
+  width: 1px;
+  height: 38px;
+  background: rgba(255, 255, 255, 0.35);
+  margin: 0 4px;
+  align-self: center;
+}
+
+.os-dock-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  cursor: pointer;
+  transition: transform 0.2s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.os-dock-item:hover {
+  transform: translateY(-8px) scale(1.25);
+}
+
+.os-dock-icon {
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s;
+}
+
+.os-dock-icon img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.os-dock-tooltip {
+  position: absolute;
+  top: -34px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(10px);
+  color: #ffffff;
+  font-size: 11px;
+  padding: 4px 10px;
+  border-radius: 6px;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.15s;
+}
+
+.os-dock-item:hover .os-dock-tooltip {
+  opacity: 1;
+}
+
+.os-dock-active-dot {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.9);
+  position: absolute;
+  bottom: -6px;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.5);
+}
+
+/* ── Content Styles overrides for white theme window contents ── */
+.mac-card {
+  background: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 8px;
+  padding: 16px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  margin-bottom: 12px;
+}
+
+.mac-card-title {
+  font-size: 14px;
+  font-weight: 700;
+  color: #111111;
+}
+
+.mac-pill {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 6px;
+  background: #f2f2f7;
+  color: #3a3a3c;
+  font-size: 11px;
+  font-weight: 600;
+  margin-right: 6px;
+  margin-bottom: 6px;
+}
+
+/* OS overrides */
+.os-menubar-exit::before,
+.os-tl::before,
+.os-dock-item::before {
+  display: none !important;
+}
+
+/* ── Force Works Second Column to the Right side ── */
+.portfolio-three-wrapper {
+  display: grid !important;
+  grid-template-columns: 1fr 1fr !important;
+  column-gap: 30px !important;
+  align-items: start !important;
+  width: 100% !important;
+}
+
+@media (max-width: 991px) {
+  .portfolio-three-wrapper {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+/* ── Centered & Fully Visible "WORK" Watermark ── */
+.portfolio-three-shape {
+  width: 100% !important;
+  left: 0 !important;
+  right: 0 !important;
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  text-align: center !important;
+  overflow: hidden !important;
+  pointer-events: none !important;
+}
+
+.portfolio-three-shape-title {
+  font-size: clamp(90px, 20vw, 360px) !important;
+  width: 100% !important;
+  text-align: center !important;
+  letter-spacing: 0.04em !important;
+  line-height: 0.85 !important;
+  white-space: nowrap !important;
+  user-select: none !important;
+}
+
+/* ── Premium Action Row & Buttons ── */
+.portfolio-action-row {
+  grid-column: 1 / -1 !important; /* Spans full width of the grid */
+  margin-top: 60px !important;
+  width: 100% !important;
+  display: flex !important;
+  justify-content: center !important;
+  gap: 20px !important;
+  z-index: 10 !important;
+  box-sizing: border-box;
+}
+
+@media (max-width: 575px) {
+  .portfolio-action-row {
+    flex-direction: column !important;
+    align-items: stretch !important;
+  }
+}
+
+.tw-btn-premium-outline {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 12px !important;
+  padding: 16px 36px !important;
+  border: 1.5px solid #22252a !important;
+  background: transparent !important;
+  color: #22252a !important;
+  font-size: 13px !important;
+  font-weight: 700 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.1em !important;
+  border-radius: 30px !important;
+  text-decoration: none !important;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+.tw-btn-premium-outline i {
+  font-size: 14px !important;
+  transition: transform 0.3s ease !important;
+}
+
+.tw-btn-premium-outline:hover {
+  background: #22252a !important;
+  color: #ffffff !important;
+}
+
+.tw-btn-premium-outline:hover i {
+  transform: translateX(4px) !important;
+}
+
+.tw-btn-premium-filled {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 12px !important;
+  padding: 16px 36px !important;
+  background: #ff5a36 !important; /* Signal Orange */
+  border: 1.5px solid #ff5a36 !important;
+  color: #ffffff !important;
+  font-size: 13px !important;
+  font-weight: 700 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.1em !important;
+  border-radius: 30px !important;
+  text-decoration: none !important;
+  box-shadow: 0 4px 14px rgba(255, 90, 54, 0.3) !important;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+.tw-btn-premium-filled:hover {
+  background: #08090a !important;
+  border-color: #08090a !important;
+  color: #ffffff !important;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15) !important;
+}
+
+.tw-btn-dot {
+  width: 8px;
+  height: 8px;
+  background: #ffffff;
+  border-radius: 50%;
+  display: inline-block;
+  position: relative;
+}
+
+.tw-btn-dot::after {
+  content: "";
+  position: absolute;
+  inset: -4px;
+  border: 1px solid #ffffff;
+  border-radius: 50%;
+  animation: tw-pulse-ring 1.5s infinite ease-in-out;
+}
+
+@keyframes tw-pulse-ring {
+  0% { transform: scale(0.6); opacity: 1; }
+  100% { transform: scale(1.6); opacity: 0; }
+}
+
