@@ -41,8 +41,17 @@ export const About: React.FC = () => {
   const signatureRef = useRef<SVGPathElement>(null);
   const statsRef = useRef<HTMLDivElement>(null);
 
-  const toggleExpand = (index: number) => {
+  const toggleExpand = (e: React.MouseEvent, index: number) => {
+    e.preventDefault();
+    e.stopPropagation();
     setExpandedIndex((prev) => (prev === index ? null : index));
+
+    requestAnimationFrame(() => {
+      ScrollTrigger.refresh();
+    });
+    setTimeout(() => {
+      ScrollTrigger.refresh();
+    }, 320);
   };
 
   useEffect(() => {
@@ -304,7 +313,7 @@ export const About: React.FC = () => {
                     <div
                       key={p.number}
                       className="border-b border-black/15 transition-all duration-300 hover:bg-black/[0.02] cursor-pointer"
-                      onClick={() => toggleExpand(index)}
+                      onClick={(e) => toggleExpand(e, index)}
                     >
                       {/* Compact Header Bar */}
                       <div className="py-5 md:py-6 px-2 md:px-4 flex items-center justify-between gap-4">
@@ -333,6 +342,7 @@ export const About: React.FC = () => {
                           <button
                             type="button"
                             aria-label={`Toggle details for ${p.title}`}
+                            onClick={(e) => toggleExpand(e, index)}
                             className={`w-9 h-9 rounded-full border border-black/20 flex items-center justify-center transition-all duration-300 ${
                               isExpanded
                                 ? "bg-[#f04a22] text-white border-[#f04a22] rotate-45"

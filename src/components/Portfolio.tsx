@@ -11,31 +11,31 @@ interface ProjectItem {
 const PORTFOLIO_DATA: ProjectItem[] = [
   {
     id: "proj-1",
-    title: "Epic Strategy App",
+    title: "Devtasoft",
     tags: ["BRANDING", "web DESIGN"],
-    image: "/assets/images/thumbs/portfolio-three-thumb1.jpg",
-    link: "#portfolio-details",
+    image: "/assets/images/thumbs/portfolio-three-thumb1.png",
+    link: "devtasoft.com",
   },
   {
     id: "proj-2",
-    title: "Branding Identity",
+    title: "Asadullah AI Engg.",
     tags: ["BRANDING", "web DESIGN"],
-    image: "/assets/images/thumbs/portfolio-three-thumb2.jpg",
-    link: "#portfolio-details",
+    image: "/assets/images/thumbs/portfolio-three-thumb2.png",
+    link: "asadullah.site",
   },
   {
     id: "proj-3",
-    title: "PixelCraft Mobile UI",
+    title: "Herman Miller Store",
     tags: ["BRANDING", "web DESIGN"],
-    image: "/assets/images/thumbs/portfolio-three-thumb3.jpg",
-    link: "#portfolio-details",
+    image: "/assets/images/thumbs/portfolio-three-thumb3.png",
+    link: "https://store.hermanmiller.com/",
   },
   {
     id: "proj-4",
-    title: "Creative Studio",
+    title: "Nexco Japan",
     tags: ["BRANDING", "web DESIGN"],
-    image: "/assets/images/thumbs/portfolio-three-thumb4.jpg",
-    link: "#portfolio-details",
+    image: "/assets/images/thumbs/portfolio-three-thumb4.png",
+    link: "http://nexcojapan.com/",
   },
 ];
 
