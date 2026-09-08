@@ -73,7 +73,7 @@ export const Hero: React.FC = () => {
                 <WireframeSphere />
               </div>
 
-              <h1 className="banner-three-title text-black tw-mb-30" style={{ fontSize: "11.5vw", whiteSpace: "nowrap", fontFamily: "'Bebas Neue', sans-serif", letterSpacing: "0.05em", textTransform: "uppercase", textAlign: "center", position: "relative", zIndex: 1 }}>
+              <h1 className="banner-three-title text-black tw-mb-30" style={{ marginTop: "-30px", fontSize: "11.5vw", whiteSpace: "nowrap", fontFamily: "'Bebas Neue', sans-serif", letterSpacing: "0.05em", textTransform: "uppercase", textAlign: "center", position: "relative", zIndex: 1 }}>
                 <FlipText>Abdullah Parvaiz</FlipText>
               </h1>
               <div className="banner-three-wrap d-flex justify-content-between align-items-end position-relative z-1">
