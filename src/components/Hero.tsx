@@ -65,7 +65,7 @@ export const Hero: React.FC = () => {
                 style={{ 
                   zIndex: 0, 
                   pointerEvents: "none", 
-                  transform: "translate(-50%, -50%)",
+                  transform: "translate(-50%, calc(-50% - 30px))",
                   width: "min(380px, 35vw)",
                   height: "min(380px, 35vw)",
                 }}
@@ -76,7 +76,7 @@ export const Hero: React.FC = () => {
               <h1 className="banner-three-title text-black tw-mb-30" style={{ marginTop: "-30px", fontSize: "11.5vw", whiteSpace: "nowrap", fontFamily: "'Bebas Neue', sans-serif", letterSpacing: "0.05em", textTransform: "uppercase", textAlign: "center", position: "relative", zIndex: 1 }}>
                 <FlipText>Abdullah Parvaiz</FlipText>
               </h1>
-              <div className="banner-three-wrap d-flex justify-content-between align-items-end position-relative z-1">
+              <div className="banner-three-wrap d-flex justify-content-between align-items-end position-relative z-1" style={{ marginTop: "-25px" }}>
                 {/* Left Panel */}
                 <div
                   className="banner-three-left tw-rounded-lg"
