@@ -171,7 +171,7 @@ export const Header: React.FC = () => {
                     </a>
                   </li>
                   <li>
-                    <a href="#linkedin">
+                    <a href="https://www.linkedin.com/in/abdullah-parvaiz-4a0492386/" target="_blank" rel="noopener noreferrer">
                       <span className="active-media d-flex align-items-center tw-gap-1">
                         LINKEDIN <i className="ph ph-arrow-bend-up-right"></i>
                       </span>
