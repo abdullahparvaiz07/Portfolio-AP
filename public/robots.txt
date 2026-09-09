@@ -19,5 +19,5 @@ Allow: /
 User-agent: ClaudeBot
 Allow: /
 
-Sitemap: https://portfolio-ap.vercel.app/sitemap.xml
+Sitemap: https://www.abdullahparvaiz.site/sitemap.xml
 
