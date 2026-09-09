@@ -15,12 +15,13 @@ import { Contact } from "./components/Contact";
 export const App: React.FC = () => {
   const ballRef = useRef<HTMLDivElement>(null);
 
-  // Initialize AOS
+  // Initialize AOS (Animate On Scroll) - run once for butter-smooth scrolling
   useEffect(() => {
     AOS.init({
-      once: false,
-      offset: 0,
-      anchorPlacement: "top-bottom",
+      once: true,
+      offset: 50,
+      duration: 700,
+      easing: "ease-out-cubic",
     });
   }, []);
 
@@ -62,19 +63,18 @@ export const App: React.FC = () => {
       });
   }, []);
 
-  // Initialize ScrollSmoother
+  // Initialize ScrollSmoother - buttery smooth responsive inertia (smooth: 1.2)
   useEffect(() => {
     const gsap = window.gsap;
     if (!gsap || !window.ScrollTrigger || !window.ScrollSmoother) return;
 
-    // Small delay for DOM readiness
     const timer = setTimeout(() => {
       gsap.registerPlugin(window.ScrollTrigger, window.ScrollSmoother, window.ScrollToPlugin);
       gsap.config({ nullTargetWarn: false });
 
       window.ScrollSmoother.create({
-        smoothTouch: 0.2,
-        smooth: 4,
+        smoothTouch: false,
+        smooth: 1.2,
         effects: true,
         normalizeScroll: false,
         ignoreMobileResize: true,
@@ -87,7 +87,7 @@ export const App: React.FC = () => {
     };
   }, []);
 
-  // Initialize Magic Cursor Tracking
+  // Initialize Magic Cursor Tracking with optimized quickTo
   useEffect(() => {
     const gsap = window.gsap;
     if (!gsap) return;
@@ -107,21 +107,25 @@ export const App: React.FC = () => {
 
     const mouse = { x: 0, y: 0 };
     const pos = { x: 0, y: 0 };
-    const ratio = 0.15;
+    const ratio = 0.18;
     let active = false;
+
+    const xTo = gsap.quickTo(ball, "x", { duration: 0.15, ease: "power2.out" });
+    const yTo = gsap.quickTo(ball, "y", { duration: 0.15, ease: "power2.out" });
 
     const handleMouseMove = (e: MouseEvent) => {
       mouse.x = e.clientX;
       mouse.y = e.clientY;
     };
 
-    document.addEventListener("mousemove", handleMouseMove);
+    window.addEventListener("mousemove", handleMouseMove, { passive: true });
 
     const updatePosition = () => {
       if (!active) {
         pos.x += (mouse.x - pos.x) * ratio;
         pos.y += (mouse.y - pos.y) * ratio;
-        gsap.set(ball, { x: pos.x, y: pos.y });
+        xTo(pos.x);
+        yTo(pos.y);
       }
     };
 

@@ -3,6 +3,11 @@ import { Canvas, useFrame } from "@react-three/fiber";
 import { Environment, Lightformer } from "@react-three/drei";
 import * as THREE from "three";
 
+const sharedNodeGeo = new THREE.SphereGeometry(0.035, 8, 8);
+const sharedNodeMat = new THREE.MeshBasicMaterial({ color: "#000000", opacity: 0.65, transparent: true });
+const sharedSatGeo = new THREE.SphereGeometry(0.025, 6, 6);
+const sharedSatMat = new THREE.MeshBasicMaterial({ color: "#333333", transparent: true, opacity: 0.5 });
+
 /* ─── Inner Wireframe & Nodes Mesh ───────────────────────────────── */
 
 function WireframeMesh() {
@@ -43,7 +48,7 @@ function WireframeMesh() {
   }, []);
 
   useEffect(() => {
-    window.addEventListener("mousemove", handleMouseMove);
+    window.addEventListener("mousemove", handleMouseMove, { passive: true });
     return () => window.removeEventListener("mousemove", handleMouseMove);
   }, [handleMouseMove]);
 
@@ -85,7 +90,7 @@ function WireframeMesh() {
 
       {/* Inner Subtle Glass / Solid Core */}
       <mesh ref={innerSphereRef}>
-        <sphereGeometry args={[1.8, 32, 32]} />
+        <sphereGeometry args={[1.8, 24, 24]} />
         <meshPhysicalMaterial
           color="#ffffff"
           transmission={0.92}
@@ -100,10 +105,7 @@ function WireframeMesh() {
 
       {/* Glowing Vertex Connection Dots */}
       {nodePositions.map((pos, idx) => (
-        <mesh key={idx} position={pos}>
-          <sphereGeometry args={[0.035, 12, 12]} />
-          <meshBasicMaterial color="#000000" opacity={0.65} transparent />
-        </mesh>
+        <mesh key={idx} position={pos} geometry={sharedNodeGeo} material={sharedNodeMat} />
       ))}
 
       {/* Orbiting Satellite Dots */}
@@ -142,10 +144,7 @@ function OrbitingSatellites() {
   return (
     <group ref={ringRef} rotation={[0.4, 0, 0.2]}>
       {points.map((pt, i) => (
-        <mesh key={i} position={pt}>
-          <sphereGeometry args={[0.025, 8, 8]} />
-          <meshBasicMaterial color="#333333" transparent opacity={0.5} />
-        </mesh>
+        <mesh key={i} position={pt} geometry={sharedSatGeo} material={sharedSatMat} />
       ))}
     </group>
   );
@@ -167,7 +166,7 @@ export const WireframeSphere: React.FC = () => {
     >
       <Canvas
         camera={{ position: [0, 0, 5.8], fov: 42 }}
-        dpr={[1, 2]}
+        dpr={[1, 1.5]}
         gl={{
           antialias: true,
           alpha: true,

@@ -106,29 +106,24 @@ export const About: React.FC = () => {
 
       items.forEach((itemNode) => {
         const item = itemNode as HTMLElement;
+
+        const xQuick = gsap.quickTo(item, "x", { duration: 0.5, ease: "power2.out" });
+        const yQuick = gsap.quickTo(item, "y", { duration: 0.5, ease: "power2.out" });
         
         const onMouseMove = (e: MouseEvent) => {
           const rect = item.getBoundingClientRect();
           const relX = e.clientX - rect.left;
           const relY = e.clientY - rect.top;
-          gsap.to(item, {
-            duration: 0.8,
-            x: ((relX - rect.width / 2) / rect.width) * 15,
-            y: ((relY - rect.height / 2) / rect.height) * 15,
-            ease: "power2.out",
-          });
+          xQuick(((relX - rect.width / 2) / rect.width) * 15);
+          yQuick(((relY - rect.height / 2) / rect.height) * 15);
         };
 
         const onMouseLeave = () => {
-          gsap.to(item, {
-            duration: 0.8,
-            x: 0,
-            y: 0,
-            ease: "power2.out",
-          });
+          xQuick(0);
+          yQuick(0);
         };
 
-        item.addEventListener("mousemove", onMouseMove);
+        item.addEventListener("mousemove", onMouseMove, { passive: true });
         item.addEventListener("mouseleave", onMouseLeave);
 
         mouseMoveHandlers.push({ el: item, fn: onMouseMove });
